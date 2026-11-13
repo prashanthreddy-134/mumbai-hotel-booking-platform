@@ -1,0 +1,56 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+.vite/
+coverage/
+
+# Logs
+*.log
+logs/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary files
+.tmp/
+.temp/
+.cache/
+
+# Deployment
+.vercel/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local Prisma AI tooling
+.agents/
+.claude/
+.cursor/
+.devin/
+
+# Root-level tooling from the previous setup
+/package.json
+/package-lock.json
+/prisma.config.ts
+/setup-and-test.ps1
