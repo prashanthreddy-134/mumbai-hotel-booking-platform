@@ -648,7 +648,7 @@ function App() {
               loadHotels(search);
             }}
           >
-            <span aria-hidden="true">?</span>
+            
 
             <input
               value={search}
