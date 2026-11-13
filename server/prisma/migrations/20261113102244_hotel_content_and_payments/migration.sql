@@ -1,10 +1,12 @@
+
 -- AlterTable
-ALTER TABLE "Booking" ADD COLUMN     "guestCount" INTEGER NOT NULL DEFAULT 1,
-ADD COLUMN     "guestEmail" TEXT,
-ADD COLUMN     "guestName" TEXT,
-ADD COLUMN     "guestPhone" TEXT,
-ADD COLUMN     "holdExpiresAt" TIMESTAMP(3),
-ADD COLUMN     "specialRequests" TEXT;
+ALTER TABLE "Booking"
+ADD COLUMN "guestCount" INTEGER NOT NULL DEFAULT 1,
+ADD COLUMN "guestEmail" TEXT,
+ADD COLUMN "guestName" TEXT,
+ADD COLUMN "guestPhone" TEXT,
+ADD COLUMN "holdExpiresAt" TIMESTAMP(3),
+ADD COLUMN "specialRequests" TEXT;
 
 -- CreateTable
 CREATE TABLE "HotelImage" (
@@ -80,55 +82,83 @@ CREATE TABLE "PaymentWebhookEvent" (
 );
 
 -- CreateIndex
-CREATE INDEX "HotelImage_hotelId_sortOrder_idx" ON "HotelImage"("hotelId", "sortOrder");
+CREATE INDEX "HotelImage_hotelId_sortOrder_idx"
+ON "HotelImage"("hotelId", "sortOrder");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "HotelAmenity_hotelId_name_key" ON "HotelAmenity"("hotelId", "name");
+CREATE UNIQUE INDEX "HotelAmenity_hotelId_name_key"
+ON "HotelAmenity"("hotelId", "name");
 
 -- CreateIndex
-CREATE INDEX "HotelPolicy_hotelId_idx" ON "HotelPolicy"("hotelId");
+CREATE INDEX "HotelPolicy_hotelId_idx"
+ON "HotelPolicy"("hotelId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "RoomAmenity_roomId_name_key" ON "RoomAmenity"("roomId", "name");
+CREATE UNIQUE INDEX "RoomAmenity_roomId_name_key"
+ON "RoomAmenity"("roomId", "name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Payment_razorpayOrderId_key" ON "Payment"("razorpayOrderId");
+CREATE UNIQUE INDEX "Payment_razorpayOrderId_key"
+ON "Payment"("razorpayOrderId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Payment_razorpayPaymentId_key" ON "Payment"("razorpayPaymentId");
+CREATE UNIQUE INDEX "Payment_razorpayPaymentId_key"
+ON "Payment"("razorpayPaymentId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Payment_refundId_key" ON "Payment"("refundId");
+CREATE UNIQUE INDEX "Payment_refundId_key"
+ON "Payment"("refundId");
 
 -- CreateIndex
-CREATE INDEX "Payment_bookingId_createdAt_idx" ON "Payment"("bookingId", "createdAt");
+CREATE INDEX "Payment_bookingId_createdAt_idx"
+ON "Payment"("bookingId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "Payment_status_idx" ON "Payment"("status");
+CREATE INDEX "Payment_status_idx"
+ON "Payment"("status");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PaymentWebhookEvent_eventId_key" ON "PaymentWebhookEvent"("eventId");
+CREATE UNIQUE INDEX "PaymentWebhookEvent_eventId_key"
+ON "PaymentWebhookEvent"("eventId");
 
 -- CreateIndex
-CREATE INDEX "Booking_roomId_status_checkIn_checkOut_idx" ON "Booking"("roomId", "status", "checkIn", "checkOut");
+CREATE INDEX "Booking_roomId_status_checkIn_checkOut_idx"
+ON "Booking"("roomId", "status", "checkIn", "checkOut");
 
 -- CreateIndex
-CREATE INDEX "Booking_userId_createdAt_idx" ON "Booking"("userId", "createdAt");
+CREATE INDEX "Booking_userId_createdAt_idx"
+ON "Booking"("userId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "Booking_status_holdExpiresAt_idx" ON "Booking"("status", "holdExpiresAt");
+CREATE INDEX "Booking_status_holdExpiresAt_idx"
+ON "Booking"("status", "holdExpiresAt");
 
 -- AddForeignKey
-ALTER TABLE "HotelImage" ADD CONSTRAINT "HotelImage_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HotelImage"
+ADD CONSTRAINT "HotelImage_hotelId_fkey"
+FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id")
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "HotelAmenity" ADD CONSTRAINT "HotelAmenity_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HotelAmenity"
+ADD CONSTRAINT "HotelAmenity_hotelId_fkey"
+FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id")
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "HotelPolicy" ADD CONSTRAINT "HotelPolicy_hotelId_fkey" FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "HotelPolicy"
+ADD CONSTRAINT "HotelPolicy_hotelId_fkey"
+FOREIGN KEY ("hotelId") REFERENCES "Hotel"("id")
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "RoomAmenity" ADD CONSTRAINT "RoomAmenity_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "Room"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "RoomAmenity"
+ADD CONSTRAINT "RoomAmenity_roomId_fkey"
+FOREIGN KEY ("roomId") REFERENCES "Room"("id")
+ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Payment" ADD CONSTRAINT "Payment_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Payment"
+ADD CONSTRAINT "Payment_bookingId_fkey"
+FOREIGN KEY ("bookingId") REFERENCES "Booking"("id")
+ON DELETE RESTRICT ON UPDATE CASCADE;
