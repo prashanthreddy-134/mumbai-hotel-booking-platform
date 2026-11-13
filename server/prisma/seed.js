@@ -1,10 +1,21 @@
-﻿require("dotenv").config();
+﻿
+require("dotenv").config();
 
 const { PrismaPg } = require("@prisma/adapter-pg");
 const { PrismaClient } = require("../generated/prisma/client");
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is missing. Check your environment configuration.");
+}
+
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  connectionTimeoutMillis: 15000,
+  idleTimeoutMillis: 10000,
+  max: 3
 });
 
 const prisma = new PrismaClient({ adapter });
@@ -31,6 +42,8 @@ const roomTypes = [
 async function main() {
   let roomCount = 0;
 
+  console.log("Starting hotel database seed...");
+
   for (let i = 0; i < hotels.length; i++) {
     const [name, description, location, address, price, rating] = hotels[i];
 
@@ -39,7 +52,14 @@ async function main() {
 
     const hotel = await prisma.hotel.upsert({
       where: { id: hotelId },
-      update: { name, description, location, address, price, rating },
+      update: {
+        name,
+        description,
+        location,
+        address,
+        price,
+        rating
+      },
       create: {
         id: hotelId,
         name,
@@ -53,7 +73,6 @@ async function main() {
 
     for (let j = 0; j < roomTypes.length; j++) {
       const room = roomTypes[j];
-
       const roomNumber = i * 3 + j + 1;
 
       const roomId =
@@ -89,6 +108,12 @@ async function main() {
   console.log("Hotels in database:", hotelCount);
   console.log("Rooms in database:", databaseRoomCount);
   console.log("Rooms processed by seed:", roomCount);
+
+  if (hotelCount < 10 || databaseRoomCount < 30) {
+    throw new Error("Seed verification failed: expected at least 10 hotels and 30 rooms.");
+  }
+
+  console.log("\nSEED COMPLETED SUCCESSFULLY");
 }
 
 main()
