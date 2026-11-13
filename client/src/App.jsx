@@ -19,7 +19,7 @@ function formatDate(value) {
 }
 
 function money(value) {
-  return `?${Number(value || 0).toLocaleString("en-IN", {
+  return `\u20B9${Number(value || 0).toLocaleString("en-IN", {
     maximumFractionDigits: 2,
   })}`;
 }
@@ -656,7 +656,7 @@ function App() {
               placeholder="Search hotels or Mumbai locations..."
             />
 
-            <button type="submit">Explore stays ?</button>
+            <button type="submit">Explore stays</button>
           </form>
         </div>
 
@@ -715,7 +715,7 @@ function App() {
                   <img src={hotel.image} alt={hotel.name} />
                 ) : (
                   <div className="image-placeholder">
-                    MUMBAI � INDIA
+                    MUMBAI | INDIA
                   </div>
                 )}
 
@@ -732,16 +732,16 @@ function App() {
 
                 <div className="hotel-bottom">
                   <span>
-                    {money(hotel.price)} <small>Copyright 2026 Monsoon Stays | Demo booking platform</small>
+                    {money(hotel.price)}
                   </span>
 
                   <button onClick={() => openHotel(hotel)}>
-                    View stay ?
+                    View stay
                   </button>
                 </div>
 
                 <small className="demo-note">
-                  Demo property � Verify details before booking
+                  Demo property | Verify details before booking
                 </small>
               </div>
             </article>
@@ -976,7 +976,7 @@ function App() {
                       <p>Capacity: {room.capacity} guests</p>
 
                       <strong>
-                        {money(room.price)} <small>Copyright 2026 Monsoon Stays | Demo booking platform</small>
+                        {money(room.price)}
                       </strong>
                     </div>
 
