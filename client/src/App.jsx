@@ -1,7 +1,7 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const API = import.meta.env.VITE_API_URL || "https://mumbai-hotel-booking-platform.onrender.com";
 const RAZORPAY_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
 
 function dateOffset(days) {
@@ -19,7 +19,7 @@ function formatDate(value) {
 }
 
 function money(value) {
-  return `₹${Number(value || 0).toLocaleString("en-IN", {
+  return `?${Number(value || 0).toLocaleString("en-IN", {
     maximumFractionDigits: 2,
   })}`;
 }
@@ -648,7 +648,7 @@ function App() {
               loadHotels(search);
             }}
           >
-            <span aria-hidden="true">⌕</span>
+            <span aria-hidden="true">?</span>
 
             <input
               value={search}
@@ -656,7 +656,7 @@ function App() {
               placeholder="Search hotels or Mumbai locations..."
             />
 
-            <button type="submit">Explore stays ↗</button>
+            <button type="submit">Explore stays ?</button>
           </form>
         </div>
 
@@ -715,7 +715,7 @@ function App() {
                   <img src={hotel.image} alt={hotel.name} />
                 ) : (
                   <div className="image-placeholder">
-                    MUMBAI · INDIA
+                    MUMBAI � INDIA
                   </div>
                 )}
 
@@ -732,16 +732,16 @@ function App() {
 
                 <div className="hotel-bottom">
                   <span>
-                    {money(hotel.price)} <small>/ night</small>
+                    {money(hotel.price)} <small>Copyright 2026 Monsoon Stays | Demo booking platform</small>
                   </span>
 
                   <button onClick={() => openHotel(hotel)}>
-                    View stay →
+                    View stay ?
                   </button>
                 </div>
 
                 <small className="demo-note">
-                  Demo property · Verify details before booking
+                  Demo property � Verify details before booking
                 </small>
               </div>
             </article>
@@ -756,7 +756,7 @@ function App() {
 
         <p>Discover Mumbai. Stay a little longer.</p>
 
-        <small>© 2026 Monsoon Stays · Demo booking platform</small>
+        <small>Copyright 2026 Monsoon Stays | Demo booking platform</small>
       </footer>
 
       {selectedHotel && (
@@ -778,7 +778,7 @@ function App() {
               disabled={Boolean(bookingLoading)}
               aria-label="Close"
             >
-              ×
+              &times;
             </button>
 
             <p className="eyebrow">PROPERTY DETAILS</p>
@@ -976,7 +976,7 @@ function App() {
                       <p>Capacity: {room.capacity} guests</p>
 
                       <strong>
-                        {money(room.price)} <small>/ night</small>
+                        {money(room.price)} <small>Copyright 2026 Monsoon Stays | Demo booking platform</small>
                       </strong>
                     </div>
 
@@ -1018,7 +1018,7 @@ function App() {
               onClick={() => setShowBookings(false)}
               aria-label="Close"
             >
-              ×
+              &times;
             </button>
 
             <p className="eyebrow">YOUR ACCOUNT</p>
@@ -1121,7 +1121,7 @@ function App() {
               onClick={() => setAuthMode("")}
               aria-label="Close"
             >
-              ×
+              &times;
             </button>
 
             <p className="eyebrow">WELCOME TO MONSOON STAYS</p>
@@ -1197,4 +1197,5 @@ function App() {
 }
 
 export default App;
+
 
